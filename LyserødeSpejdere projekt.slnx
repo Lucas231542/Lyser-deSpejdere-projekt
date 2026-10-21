@@ -1,4 +1,8 @@
 <Solution>
+  <Project Path="../Database1/Database1.sqlproj" Id="01944c48-5bcc-4ed3-8a52-563c06468d0d">
+    <Build />
+    <Deploy />
+  </Project>
   <Project Path="LyserødeSpejdere.Lib/LyserødeSpejdere.Lib.csproj" />
   <Project Path="Razor.LyserødeSpejdere/Razor.LyserødeSpejdere.csproj" />
 </Solution>
