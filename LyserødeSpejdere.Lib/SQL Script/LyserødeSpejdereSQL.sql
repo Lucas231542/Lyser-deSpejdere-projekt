@@ -4,6 +4,13 @@ Id int Primary key
 Navn VARCHAR
 )
 
+Create Table AktivitetType
+(
+AktivitetTypeId Int Primary key,
+Navn VARCHAR(100),
+StartDate Date,
+EndDATE DATE
+)
 
 Create Table Aktivitet
 (
