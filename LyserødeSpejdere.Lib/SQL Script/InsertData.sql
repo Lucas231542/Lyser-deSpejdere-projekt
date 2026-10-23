@@ -80,6 +80,6 @@ INSERT INTO Tilmelding (BrugerId, AktivitetId) VALUES
 (6,4);  -- Khadija: fang dyr (9 år, grænsen er 8)
 
 
-
+Select * From Bruger
 
 
