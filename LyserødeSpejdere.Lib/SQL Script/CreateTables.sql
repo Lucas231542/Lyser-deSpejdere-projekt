@@ -55,7 +55,7 @@ CREATE TABLE Aktivitet(
 
 -- Spejder tilmeldt en aktivitet 
 
-CREATE TABLE Tilmeldning (
+CREATE TABLE Tilmelding (
     
     BrugerId int NOT NULL,
     AktivitetId int NOT NULL,
