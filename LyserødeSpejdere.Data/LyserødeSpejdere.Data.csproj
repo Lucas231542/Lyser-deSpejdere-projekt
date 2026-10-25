@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LyserødeSpejdere.Lib\LyserødeSpejdere.Lib.csproj" />
+  </ItemGroup>
+
 </Project>
