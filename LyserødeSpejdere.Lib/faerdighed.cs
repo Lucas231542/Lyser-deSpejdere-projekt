@@ -4,8 +4,7 @@ using System.Text;
 
 namespace LyserødeSpejdere.Lib
 {
-    public class Repo
+    public class faerdighed
     {
-
     }
 }
