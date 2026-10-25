@@ -4,7 +4,8 @@ using System.Text;
 
 namespace LyserødeSpejdere.Lib
 {
-    internal class Tilmelding
+    public class Tilmelding
     {
+
     }
 }
