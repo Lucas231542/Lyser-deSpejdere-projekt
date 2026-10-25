@@ -9,7 +9,7 @@ using System.Text;
 
 namespace LyserødeSpejdere.Lib
 {
-    public class AktivitetRepo : IAktivitetRepo
+    public class AktivitetRepo
     {
        
        
