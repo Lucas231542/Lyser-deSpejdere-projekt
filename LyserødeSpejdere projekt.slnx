@@ -3,6 +3,7 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="LyserødeSpejdere.Data/LyserødeSpejdere.Data.csproj" Id="eea66cf5-8e35-4de1-87ad-d25020d8ed64" />
   <Project Path="LyserødeSpejdere.Lib/LyserødeSpejdere.Lib.csproj" />
   <Project Path="Razor.LyserødeSpejdere/Razor.LyserødeSpejdere.csproj" />
 </Solution>
