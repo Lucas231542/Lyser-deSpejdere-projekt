@@ -1,19 +1,64 @@
 ﻿@page
 @model IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Forside";
 }
 
-<div class="text-center">
-    <h4 class="display-4">Velkommen til de Lyserøde Spejdere</h4>
-    <h1 class="display-7">Glæd dig til at være en del af vores samfund og oplev de unikke oplevelser, vi har at tilbyde. Tilmeld dig vores udvalg af aktiviteter her.</h1>
-    <a class="btn btn-primary btn-lg" href="/Aktivitet">Tilmeld dig aktiviteter</a>
-    <a class="btn btn-dark btn-lg" href="/MineAktiviteter">Mine Aktiviter</a>
-    <a class="btn btn-secondary btn-lg" href="/LogIn">Log in</a>
-    <a class="btn btn-success btn-lg" href="/Medlemmer">Medlemmer</a>
-   
+<div class="hero">
+    <h1>Velkommen til De Lyserøde Spejdere 🌸</h1>
+
+    <p>
+        Glæd dig til fællesskab, eventyr og masser af hygge!
+        Bliv en del af vores spejderliv, oplev spændende aktiviteter,
+        og skab gode minder sammen med os.
+    </p>
+
+    <div class="hero-buttons">
+        <a class="btn pink-btn btn-lg" href="/Aktivitet">
+            🌷 Se aktiviteter
+        </a>
+
+        <a class="btn btn-dark btn-lg" href="/MineAktiviteter">
+            Mine aktiviteter
+        </a>
+
+        <a class="btn btn-outline-dark btn-lg" href="/LogIn">
+            Log ind
+        </a>
+
+        <a class="btn btn-outline-secondary btn-lg" href="/Medlemmer">
+            Medlemmer
+        </a>
+    </div>
 </div>
 
-<img src="/images/spejder.webp" height="400" width="350" alt="Spejderne på tur">
-<img src="/images/spejder1.webp" height="400" width="350" alt="Husk hyggen">
-<img src="/images/spejder2.webp" height="400" width="350" alt="Spejder hygge om bål">
+<h2 class="section-title">
+    Oplevelser, fællesskab og hygge 💗
+</h2>
+
+<div class="gallery">
+
+    <div class="gallery-card">
+        <img src="/images/spejder.webp"
+             alt="Spejderne på tur" />
+        <p>Eventyr i naturen 🌿</p>
+    </div>
+
+    <div class="gallery-card">
+        <img src="/images/spejder1.webp"
+             alt="Spejderhygge" />
+        <p>Venskaber og fællesskab 💕</p>
+    </div>
+
+    <div class="gallery-card">
+        <img src="/images/spejder2.webp"
+             alt="Spejderne hygger omkring bålet" />
+        <p>Hygge omkring bålet 🔥</p>
+    </div>
+
+</div>
+
+<div class="footer-text">
+    <p>Sammen skaber vi minder for livet 💗</p>
+</div>
