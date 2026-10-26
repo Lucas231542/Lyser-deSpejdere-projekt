@@ -15,14 +15,15 @@ namespace LyserødeSpejdere.Lib
         private SqlConnection _conn;
 
         // konstruktør
-        
-        public DBConnecter()
+
+        public SqlConnection GetConnection()
         {
-            IConfigurationRoot config = new ConfigurationBuilder()
-            .AddUserSecrets(Assembly.GetExecutingAssembly(), Optional: true) // jeg kan ikke downloade Microsoft.Extensions.Configuration.UserSecrets. Ved ikke om i kan
+            var config = new ConfigurationBuilder()
+            .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
 
-            _connectionString = config[""];
+            String ConnectionString = config[""];
+            return new SqlConnection(ConnectionString);
         }
 
         private void ConnectToDB()
