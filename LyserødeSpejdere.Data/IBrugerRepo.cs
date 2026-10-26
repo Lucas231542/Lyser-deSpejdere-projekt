@@ -7,7 +7,9 @@ namespace LyserødeSpejdere.Data
 {
     public interface IBrugerRepo
     {
-        public void Create(Bruger bruger);
+        public void opret(Bruger bruger);
+        public void Delete(Bruger bruger);
+        public void GetBruger(int BrugerId);
 
 
     }
