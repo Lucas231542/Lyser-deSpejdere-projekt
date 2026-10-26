@@ -1,53 +1,66 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.AktivitetModel
-@{
-}
+
 <h1>De Lyserøde Spejdere</h1>
 <h2>Spejderlejr i Hedeland</h2>
 
-<p>Her kan du se alle aktiviteter på lejren og tilmelde dig dine favoritter</p>
+<p class="intro">
+    Her kan du se alle aktiviteter på lejren og tilmelde dig dine favoritter.
+</p>
 
-
-<hr/> 
+<hr />
 
 <h2>Vores aktiviteter</h2>
 
-<h3>Ridning</h3>
-<p>Besøg en gård og prøv at ride på heste.</p>
-<p>Dato: 30 oktober 2026</p>
-<p>Tid: 10:00 - 12:00</p>
-<p>Sted: Gården</p>
-<p>Krav: Mindst 10 år og ridemærke</p>
+<div class="aktiviteter">
+
+    <!-- Ridning -->
+    <section class="aktivitet">
+        <div class="aktivitet-tekst">
+            <h3>Ridning</h3>
+            <p>Besøg en gård og prøv at ride på heste.</p>
+            <p><strong>Dato:</strong> 30. oktober 2026</p>
+            <p><strong>Tid:</strong> 10:00 - 12:00</p>
+            <p><strong>Sted:</strong> Gården</p>
+            <p><strong>Krav:</strong> Mindst 10 år og ridemærke</p>
+            <button type="button">Tilmeld mig</button>
+        </div>
+
+        <img src="/images/hest.webp" alt="Ridning på heste" />
+    </section>
+
+    <hr />
+
+    <!-- Mad over bål -->
+    <section class="aktivitet">
+        <div class="aktivitet-tekst">
+            <h3>Mad over bål</h3>
+            <p>Vi laver lækker mad over bål sammen.</p>
+            <p><strong>Dato:</strong> 6. november 2026</p>
+            <p><strong>Tid:</strong> 18:00 - 20:00</p>
+            <p><strong>Sted:</strong> Lejrpladsen</p>
+            <p><strong>Krav:</strong> Ingen særlige krav</p>
+            <button type="button">Tilmeld mig</button>
+        </div>
+
+        <img src="/images/bål.jpg" alt="Madlavning over bål" />
+    </section>
+
+    <hr />
+
+    <!-- Fang dyr ved vandhullet -->
+    <section class="aktivitet">
+        <div class="aktivitet-tekst">
+            <h3>Fang dyr ved vandhullet</h3>
+            <p>Vi undersøger smådyr i vandet med net.</p>
+            <p><strong>Dato:</strong> 7. december 2026</p>
+            <p><strong>Tid:</strong> 10:00 - 12:00</p>
+            <p><strong>Sted:</strong> Vandhullet</p>
+            <p><strong>Krav:</strong> Mindst 8 år</p>
+            <button type="button">Tilmeld mig</button>
+        </div>
+
+        <img src="/images/fish.jpg" alt="Smådyr ved vandhullet" />
+    </section>
 
 </div>
-
-<img src="/images/hest.webp" height="400" width="350" alt="Spejderne på tur">
-<button type="button">Tilmeld mig</button>
-
-<hr />
-
-<h3>Mad over bål</h3>
-<p>Vi laver lækker mad over bål sammen.</p>
-<p>Dato: 6. november 2026</p>
-<p>Tid: 18:00 - 20:00</p>
-<p>Sted: Lejrpladsen</p>
-<p>Krav: Ingen særlige krav</p>
-</div>
-
-<img src="/images/bål.jpg" height="400" width="350" alt="Spejderne på tur">
-
-<button type="button">Tilmeld mig</button>
-
-<hr />
-
-<h3>Fang dyr ved vandhullet</h3>
-<p>Vi undersøger smådyr i vandet med net.</p>
-<p>Dato: 7. december 2026</p>
-<p>Tid: 10:00 - 12:00</p>
-<p>Sted: Vandhullet</p>
-<p>Krav: Mindst 8 år</p>
-<button type="button">Tilmeld mig</button>
-</div>
-
-<img src="/images/fish.jpg" height="400" width="350" alt="Spejderne på tur">
-<hr />

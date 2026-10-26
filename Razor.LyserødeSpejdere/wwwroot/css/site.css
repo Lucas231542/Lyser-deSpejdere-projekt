@@ -1,31 +1,271 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Formularer */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* Overskrifter */
+h1 {
+    color: #d63384;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #a61e69;
+    margin-top: 25px;
+}
+
+.intro {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* =====================================
+   FORSIDE
+   ===================================== */
+
+.hero {
+    background: linear-gradient(135deg, #ffe0ed, #fff4f8);
+    border-radius: 25px;
+    padding: 60px 25px;
+    margin: 25px auto 40px;
+    text-align: center;
+}
+
+    .hero h1 {
+        color: #c2185b;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        color: #654653;
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+        line-height: 1.8;
+    }
+
+/* Knapper på forsiden */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+    .hero-buttons .btn {
+        border-radius: 30px;
+        padding: 12px 24px;
+        margin: 0;
+        font-weight: 600;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+        .hero-buttons .btn:hover {
+            transform: translateY(-2px);
+        }
+
+.pink-btn {
+    background-color: #e83e8c;
+    color: white;
+    border: 1px solid #e83e8c;
+}
+
+    .pink-btn:hover {
+        background-color: #c2185b;
+        border-color: #c2185b;
+        color: white;
+    }
+
+/* Overskrift over billederne */
+.section-title {
+    color: #c2185b;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 25px;
+}
+
+/* Billeder vandret ved siden af hinanden */
+.gallery {
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+    width: 100%;
+    margin-bottom: 45px;
+    align-items: stretch;
+}
+
+/* Kort til hvert billede */
+.gallery-card {
+    flex: 1 1 0;
+    min-width: 0;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(194, 24, 91, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .gallery-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(194, 24, 91, 0.18);
+    }
+
+    /* Billeder */
+    .gallery-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Tekst under billederne */
+    .gallery-card p {
+        text-align: center;
+        color: #654653;
+        font-weight: 600;
+        padding: 16px;
+        margin: 0;
+    }
+
+/* Tekst nederst på forsiden */
+.footer-text {
+    text-align: center;
+    color: #9a6680;
+    padding: 20px;
+}
+
+    .footer-text p {
+        margin-bottom: 0;
+    }
+
+/* =====================================
+   AKTIVITETER
+   ===================================== */
+
+.aktiviteter {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.aktivitet {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    align-items: center;
+    gap: 30px;
+    padding: 25px 0;
+}
+
+.aktivitet-tekst p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.aktivitet img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.aktivitet button {
+    background-color: #d63384;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+    .aktivitet button:hover {
+        background-color: #a61e69;
+    }
+
+.aktiviteter hr {
+    border: 0;
+    border-top: 1px solid #e5b6cf;
+    margin: 10px 0;
+}
+
+/* =====================================
+   MOBILVENLIGT DESIGN
+   ===================================== */
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 18px;
+    }
+
+        .hero p {
+            font-size: 1.05rem;
+        }
+
+    /* Billederne står under hinanden på mobil */
+    .gallery {
+        flex-direction: column;
+    }
+
+    .gallery-card img {
+        height: 250px;
+    }
+}
+
+@media (max-width: 700px) {
+    .aktivitet {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+        .aktivitet img {
+            height: 230px;
+        }
+}
+
+@media (max-width: 500px) {
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+        .hero-buttons .btn {
+            width: 100%;
+            max-width: 300px;
+        }
 }
