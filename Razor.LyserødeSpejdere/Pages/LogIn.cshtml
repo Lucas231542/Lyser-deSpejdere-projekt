@@ -1,4 +1,26 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.LogInModel
-@{
-}
+
+<div class="text-center">
+    <h1>Log ind</h1>
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="Brugernavn">Brugernavn</label>
+            <input type="text" id="Brugernavn"
+                   name="Brugernavn" class="form-control"
+                   placeholder="Skriv dit brugernavn" />
+        </div>
+
+        <div class="mb-3">
+            <label for="Adgangskode">Adgangskode</label>
+            <input type="password" id="Adgangskode"
+                   name="Adgangskode" class="form-control"
+                   placeholder="Skriv din adgangskode" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+            Log ind
+        </button>
+    </form>
+</div>
