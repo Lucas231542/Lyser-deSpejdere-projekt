@@ -10,25 +10,25 @@ using System.Text;
 
 namespace LyserødeSpejdere.Lib
 {
-    public class AktivitetRepo
+    public class AktivitetRepo : IAktivitetRepo
     {
         private readonly DBConnecter _db = new DBConnecter();
 
         public List<Aktivitet> GetAllaktivitet()
         {
             List<Aktivitet> AktivitetListe = new List<Aktivitet>();
-            using (SqlConnection conn = _db.GetConnection())
+            using (SqlConnection conn = _db.GetConnection()) // GetAlleaktiviteter bruger metoden GetConnection fra DBConnecter som opretter forbindelse til Databasen
             {
 
-                conn.Open();
+                conn.Open(); // connection bliver åbnet
 
-                string sql = $"SELECT AktivitetId, AktivitetTypeId, StartTid, SlutTid, Sted FROM Aktivitet";
+                string sql = $"SELECT AktivitetId, AktivitetTypeId, StartTid, SlutTid, Sted FROM Aktivitet"; // SELECT vælger hvilke parameter der skal vises med metoden
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader r = cmd.ExecuteReader();
 
 
 
-
+                
 
                 while (r.Read())
                 {
@@ -40,7 +40,7 @@ namespace LyserødeSpejdere.Lib
                         SlutTid = r.GetDateTime(3),
                         Sted = r.GetString(4)
                     };
-                    AktivitetListe.Add(aktivitet);
+                    AktivitetListe.Add(aktivitet); // mens While løkken kører bliver aktiviteter tilføjet til listen indtil der ikke er flere aktiviteter tilbage
                 }
 
 
@@ -80,12 +80,12 @@ namespace LyserødeSpejdere.Lib
 
 
 
-        public void Create(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted)
+        public void Create(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted) 
         {
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = $"Insert INTO Aktivitet (AktivitetTypeId, StartTid, SlutTid, Sted) VALUES (@AktivitetTypeId, @StartTid, @SlutTid, @Sted)";
+                string sql = $"Insert INTO Aktivitet (AktivitetTypeId, StartTid, SlutTid, Sted) VALUES (@AktivitetTypeId, @StartTid, @SlutTid, @Sted)"; 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 if (bruger.ErLeder)
                 {
@@ -133,5 +133,8 @@ namespace LyserødeSpejdere.Lib
 
             }
         }
+
+
+        
     }
 }
