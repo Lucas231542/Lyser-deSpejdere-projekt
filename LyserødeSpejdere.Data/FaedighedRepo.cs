@@ -7,5 +7,6 @@ namespace LyserødeSpejdere.Data
     public class FaedighedRepo : IFaerdighedRepo
     {
 
+
     }
 }

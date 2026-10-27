@@ -111,7 +111,7 @@ namespace LyserødeSpejdere.Lib
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = $"UPDATE Aktivitet SET StartTid = @StartTid, SlutTid = @SlutTid, Sted = @Sted";
+                string sql = $"UPDATE Aktivitet SET StartTid = @StartTid, SlutTid = @SlutTid, Sted = @Sted WHERE AktivitetId = @AktivitetId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@StartTid", StartTid);
                 cmd.Parameters.AddWithValue("@SlutTid", SlutTid);

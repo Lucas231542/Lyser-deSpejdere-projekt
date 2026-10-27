@@ -13,9 +13,6 @@ namespace LyserødeSpejdere.Data
         public void CreateAktivitet(Aktivitet aktivitet, Bruger bruger);
         public void Update(Aktivitet aktivite);
         public void Delete(int aktivitetId);
-        public void Tilmeld(int brugerId, int aktiviteId);
-        public void Frameld(int brugerId, int aktivitetId);
-        List<Bruger> HentDeltagere();
         int HentDeltagerAntal(int aktivitetId);
 
     }
