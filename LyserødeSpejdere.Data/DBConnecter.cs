@@ -22,7 +22,7 @@ namespace LyserødeSpejdere.Lib
             .AddUserSecrets(Assembly.GetExecutingAssembly())
             .Build();
 
-            String ConnectionString = config[""];
+            String ConnectionString = config["DefaultConnection"];
             return new SqlConnection(ConnectionString);
         }
 
