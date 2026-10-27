@@ -42,7 +42,7 @@ namespace LyserødeSpejdere.Data
         }
         
         // Read: en aktivitetstype ud fra id
-        public AktivitetType GetById(int aktivitetTypeId)
+        public AktivitetType? GetById(int aktivitetTypeId)
         {
             using (SqlConnection conn = _db.GetConnection())
             {
