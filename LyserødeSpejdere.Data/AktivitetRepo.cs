@@ -135,6 +135,7 @@ namespace LyserødeSpejdere.Lib
         }
 
 
-        
+        //public void HentDeltagerAntal(Bruger bruger)
+
     }
 }
