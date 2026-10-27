@@ -1,4 +1,31 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.MedlemmerModel
-@{
-}
+
+
+<h1>Medlemmer</h1>
+
+<p>Velkommen til medlemssiden for De Lyserøde Spejdere!</p>
+
+<h2>Vores medlemmer</h2>
+
+<ul>
+    @foreach (var medlem in Model.Medlemmer)
+    {
+        <li>@medlem</li>
+    }
+</ul>
+<hr />
+
+<h3>Medlemsområde</h3>
+
+<p>Du er logget ind og har adgang til denne side.</p>
+
+<a href="/Aktivitet" class="btn btn-primary">
+    Se aktiviteter
+</a>
+
+<form method="post" asp-page-handler="LogUd" class="mt-3">
+    <button type="submit" class="btn btn-danger">
+        Log ud
+    </button>
+</form>
