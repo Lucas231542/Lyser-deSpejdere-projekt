@@ -1,6 +1,8 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.AktivitetModel
 
+
+
 <h1>De Lyserøde Spejdere</h1>
 <h2>Spejderlejr i Hedeland</h2>
 
@@ -14,7 +16,6 @@
 
 <div class="aktiviteter">
 
-    <!-- Ridning -->
     <section class="aktivitet">
         <div class="aktivitet-tekst">
             <h3>Ridning</h3>
@@ -23,15 +24,17 @@
             <p><strong>Tid:</strong> 10:00 - 12:00</p>
             <p><strong>Sted:</strong> Gården</p>
             <p><strong>Krav:</strong> Mindst 10 år og ridemærke</p>
-            <button type="button">Tilmeld mig</button>
-        </div>
 
+            <form method="post" asp-page-handler="Tilfoej">
+                <input type="hidden" name="aktivitetNavn" value="Ridning" />
+                <button type="submit">Tilmeld mig</button>
+            </form>
+        </div>
         <img src="/images/hest.webp" alt="Ridning på heste" />
     </section>
 
     <hr />
 
-    <!-- Mad over bål -->
     <section class="aktivitet">
         <div class="aktivitet-tekst">
             <h3>Mad over bål</h3>
@@ -40,15 +43,17 @@
             <p><strong>Tid:</strong> 18:00 - 20:00</p>
             <p><strong>Sted:</strong> Lejrpladsen</p>
             <p><strong>Krav:</strong> Ingen særlige krav</p>
-            <button type="button">Tilmeld mig</button>
-        </div>
 
+            <form method="post" asp-page-handler="Tilfoej">
+                <input type="hidden" name="aktivitetNavn" value="Mad over bål" />
+                <button type="submit">Tilmeld mig</button>
+            </form>
+        </div>
         <img src="/images/bål.jpg" alt="Madlavning over bål" />
     </section>
 
     <hr />
 
-    <!-- Fang dyr ved vandhullet -->
     <section class="aktivitet">
         <div class="aktivitet-tekst">
             <h3>Fang dyr ved vandhullet</h3>
@@ -57,9 +62,12 @@
             <p><strong>Tid:</strong> 10:00 - 12:00</p>
             <p><strong>Sted:</strong> Vandhullet</p>
             <p><strong>Krav:</strong> Mindst 8 år</p>
-            <button type="button">Tilmeld mig</button>
-        </div>
 
+            <form method="post" asp-page-handler="Tilfoej">
+                <input type="hidden" name="aktivitetNavn" value="Fang dyr ved vandhullet" />
+                <button type="submit">Tilmeld mig</button>
+            </form>
+        </div>
         <img src="/images/fish.jpg" alt="Smådyr ved vandhullet" />
     </section>
 
