@@ -1,5 +1,6 @@
 using LyserødeSpejdere.Lib;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LyserødeSpejdere.Data
 {
@@ -119,5 +120,79 @@ namespace LyserødeSpejdere.Data
                 return (int)cmd.ExecuteScalar();
             }
         }
+        
+        // Tjek casens regler. Returnerer null hvis OK, ellers årsagen.
+
+        public string? TjekRegler(int brugerId, int aktivitetId)
+        {
+            int? maxDeltagere;
+            int? minAlder;
+            DateTime foedselsdato;
+            DateTime startTid;
+
+            // Hent aktivitetens regler + spejderens fødselsdato i en SQL
+
+            using (SqlConnection conn = _db.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT Typ.MaxDeltagere, typ.MinAlder, b.Foedselsdato, a.StarTid" +
+                             "FROM Aktivitet a " +
+                             "JOIN AktivitetType typ ON a.AktivitetTypeId =  typ.AktivitetTypeId " +
+                             "CROSS JOIN Bruger b " +
+                             "WHERE a.AktivitetId = @AktivitetId AND b.BrugerId = @brugerId";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
+                cmd.Parameters.AddWithValue("@brugerId", brugerId);
+                SqlDataReader r = cmd.ExecuteReader();
+
+                if (!r.Read())
+                {
+                    return "Aktiviteten eller brugeren findes ikke";
+                }
+
+                maxDeltagere = r.IsDBNull(0) ? null : r.GetInt32(0);
+                minAlder = r.IsDBNull(1) ? null : r.GetInt32(1);
+                foedselsdato = r.GetDateTime(2);
+                startTid = r.GetDateTime(3);
+
+            }
+
+            // Regel 1: Alder 
+
+            if (minAlder != null)
+            {
+                int alder = BeregnAlder(foedselsdato, startTid);
+                if (alder < minAlder)
+                {
+                    return $"Du skal være mindst {minAlder} år for at deltage";
+
+                }
+            }
+
+            // Regel 2: max deltagere 
+            if (maxDeltagere != null && HentDeltagerAntal(aktivitetId) >= maxDeltagere)
+            {
+                return "Aktiviteten er desværre fuld";
+            }
+
+            return null; // Alle regler er ok
+        }
+
+        // Hjælpemetode: Alder på en bestemt dato 
+
+            private int BeregnAlder(DateTime foedselsdato, DateTime dato)
+            {
+                int alder = dato.Year - foedselsdato.Year;
+                if (foedselsdato.Date > dato.AddYears(-alder).Date)
+                {
+                    alder--; // Har ikke haft fødselsdag endnu det år
+                }
+
+                return alder;
+            }
+
+
+        }
     }
-}
+
+

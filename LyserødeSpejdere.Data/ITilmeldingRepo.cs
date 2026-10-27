@@ -9,4 +9,5 @@ public interface ITilmeldingRepo
     List<Aktivitet> HentMineAktiviteter(int brugerId);
     List<Bruger> HentDeltagere(int aktivitetId);
     int HentDeltagerAntal(int aktivitetId);
+    string? TjekRegler(int brugerId, int aktivitetId);
 }
