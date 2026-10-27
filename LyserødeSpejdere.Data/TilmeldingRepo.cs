@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace LyserødeSpejdere.Data
 {
     public class TilmeldingRepo : ITilmeldingRepo
-    {
+    { 
         private readonly DBConnecter _db = new DBConnecter();
 
         // Create: Tilmeld en spejder, hvis reglen er overholdt.
