@@ -1,4 +1,29 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.MineAktiviteterModel
-@{
+
+
+
+<h1>Mine aktiviteter</h1>
+
+<p>Her kan du se de aktiviteter, du har tilmeldt dig.</p>
+
+<hr />
+
+@if (Model.Aktiviteter.Count == 0)
+{
+    <p>Du er ikke tilmeldt nogen aktiviteter endnu.</p>
+    <a href="/Aktivitet" class="btn btn-primary">
+        Se aktiviteter
+    </a>
 }
+else
+{
+    @foreach (var aktivitet in Model.Aktiviteter)
+    {
+        <div class="card p-3 mb-3">
+            <h4>@aktivitet</h4>
+            <p>Du er tilmeldt denne aktivitet.</p>
+        </div>
+    }
+}
+
