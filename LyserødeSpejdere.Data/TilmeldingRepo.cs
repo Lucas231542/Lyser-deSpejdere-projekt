@@ -6,23 +6,53 @@ namespace LyserødeSpejdere.Data
 {
     public class TilmeldingRepo : ITilmeldingRepo
     {
-        private readonly DBConnecter _db = new  DBConnecter();
-        
-        // Create: Tilmeld en spejder til en aktivitet
-        public void Tilmeld(int brugerId, int aktivitetId)
+        private readonly DBConnecter _db = new DBConnecter();
+
+        // Create: Tilmeld en spejder, hvis reglen er overholdt.
+        // Returnerer null hvis det lykkes, ellers årsagen.
+        public string? Tilmeld(int brugerId, int AktivitetId)
         {
+            if (ErTilmeldt(brugerId, AktivitetId))
+            {
+                return "Du er allerrede tilmeldt denne aktivitet";
+            }
+
+            string? fejl = TjekRegler(brugerId, AktivitetId);
+            if (fejl != null)
+            {
+                return fejl;
+            }
+
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
                 string sql = "INSERT INTO Tilmelding (BrugerId, AktivitetId) VALUES (@BrugerId, @AktivitetId)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@BrugerId", brugerId);
-                cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
+                cmd.Parameters.AddWithValue("@AktivitetId", AktivitetId);
                 cmd.ExecuteNonQuery();
             }
+
+            return null;
         }
-        
-        // Delete: Frameld en spejder fra en aktivitet
+
+
+        // Read: er spejderen allerede tilmeldt ?
+        public bool ErTilmeldt(int brugerId, int aktivitetId)
+        {
+            using (SqlConnection conn = _db.GetConnection())
+            {
+                conn.Open();
+                string sql = "SELECT COUNT (*) FROM Tilmelding WHERE BrugerId = @BrugerId AND AktivitetId = @AktivitetId";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@BrugerId", brugerId);
+                cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
+                return (int)cmd.ExecuteScalar() > 0;
+
+            }
+        }
+
+// Delete: Frameld en spejder fra en aktivitet
         public void Frameld(int brugerId, int aktivitetId)
         {
             using (SqlConnection conn = _db.GetConnection())
@@ -35,7 +65,7 @@ namespace LyserødeSpejdere.Data
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
         // Read: Alle aktiviteter en spejder er tilmeldt (Mine aktiviteter)
 
         public List<Aktivitet> HentMineAktiviteter(int brugerId)
@@ -62,15 +92,13 @@ namespace LyserødeSpejdere.Data
                         StartTid = r.GetDateTime(2),
                         SlutTid = r.GetDateTime(3),
                         Sted = r.IsDBNull(4) ? "" : r.GetString(4)
-
                     });
                 }
-
             }
 
             return liste;
         }
-        
+
         //Read: Alle spejdere tilmeldt en aktivitet (Lederens deltagerliste)
 
         public List<Bruger> HentDeltagere(int aktivitetId)
@@ -79,11 +107,12 @@ namespace LyserødeSpejdere.Data
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT b.BrugerId, b.Navn, b.Mail, b.Brugernavn, b.Adgangskode, b.Foedselsdato, b.ErLeder" +
-                             "FROM Bruger b " +
-                             "JOIN Tilmelding t ON b.BrugerId = t.BrugerId" +
-                             "WHERE t.AktivitetId = @AktivitetId" +
-                             "ORDER BY b.Navn";
+                string sql =
+                    "SELECT b.BrugerId, b.Navn, b.Mail, b.Brugernavn, b.Adgangskode, b.Foedselsdato, b.ErLeder" +
+                    "FROM Bruger b " +
+                    "JOIN Tilmelding t ON b.BrugerId = t.BrugerId" +
+                    "WHERE t.AktivitetId = @AktivitetId" +
+                    "ORDER BY b.Navn";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@aktivitetId", aktivitetId);
                 SqlDataReader r = cmd.ExecuteReader();
@@ -104,23 +133,22 @@ namespace LyserødeSpejdere.Data
             }
 
             return Liste;
-
         }
-        
+
         //Read:  Hvor mange er tilmeldt en aktivitet (Til max-tjek)
 
         public int HentDeltagerAntal(int aktivitetId)
         {
             using (SqlConnection conn = _db.GetConnection())
             {
-                conn.Open();    
+                conn.Open();
                 string sql = "SELECT COUNT(*) FROM Tilmelding WHERE AktivitetId = @AktivitetId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
                 return (int)cmd.ExecuteScalar();
             }
         }
-        
+
         // Tjek casens regler. Returnerer null hvis OK, ellers årsagen.
 
         public string? TjekRegler(int brugerId, int aktivitetId)
@@ -154,7 +182,6 @@ namespace LyserødeSpejdere.Data
                 minAlder = r.IsDBNull(1) ? null : r.GetInt32(1);
                 foedselsdato = r.GetDateTime(2);
                 startTid = r.GetDateTime(3);
-
             }
 
             // Regel 1: Alder 
@@ -165,7 +192,6 @@ namespace LyserødeSpejdere.Data
                 if (alder < minAlder)
                 {
                     return $"Du skal være mindst {minAlder} år for at deltage";
-
                 }
             }
 
@@ -180,19 +206,15 @@ namespace LyserødeSpejdere.Data
 
         // Hjælpemetode: Alder på en bestemt dato 
 
-            private int BeregnAlder(DateTime foedselsdato, DateTime dato)
+        private int BeregnAlder(DateTime foedselsdato, DateTime dato)
+        {
+            int alder = dato.Year - foedselsdato.Year;
+            if (foedselsdato.Date > dato.AddYears(-alder).Date)
             {
-                int alder = dato.Year - foedselsdato.Year;
-                if (foedselsdato.Date > dato.AddYears(-alder).Date)
-                {
-                    alder--; // Har ikke haft fødselsdag endnu det år
-                }
-
-                return alder;
+                alder--; // Har ikke haft fødselsdag endnu det år
             }
 
-
+            return alder;
         }
     }
-
-
+}
