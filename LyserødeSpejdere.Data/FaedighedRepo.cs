@@ -6,31 +6,31 @@ using Microsoft.Data.SqlClient;
 
 namespace LyserødeSpejdere.Data
 {
-    
-    
-        public class FaedighedRepo : IFaerdighedRepo
+
+
+    public class FaedighedRepo : IFaerdighedRepo
+    {
+        private readonly DBConnecter _db = new DBConnecter();
+
+        public void Create(string navn)
         {
-            private readonly DBConnecter  _db = new DBConnecter();
-
-            public void Create(string navn)
+            using (SqlConnection conn = _db.GetConnection())
             {
-                using (SqlConnection conn = _db.GetConnection())
-                {
 
 
-                    conn.Open();
+                conn.Open();
 
-                    string sql =
-                        "INSERT INTO Faerdighed (Navn) VALUES (@Navn)";
+                string sql =
+                    "INSERT INTO Faerdighed (Navn) VALUES (@Navn)";
 
-                    using SqlCommand command =
-                        new SqlCommand(sql, conn);
+                SqlCommand command =
+                    new SqlCommand(sql, conn);
 
-                    command.Parameters.AddWithValue("@Navn", navn);
+                command.Parameters.AddWithValue("@Navn", navn);
 
-                    command.ExecuteNonQuery();
-                }
+                command.ExecuteNonQuery();
             }
         }
-}
+    }
 
+}      
