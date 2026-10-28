@@ -80,7 +80,7 @@ namespace LyserødeSpejdere.Lib
 
 
 
-        public void Create(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted) 
+        public void CreateAktivitet(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted) 
         {
             using (SqlConnection conn = _db.GetConnection())
             {
