@@ -7,5 +7,7 @@ namespace LyserødeSpejdere.Data
     public interface IFaerdighedRepo
     {
             void Create(string navn);
+            
+        
     }
 }
