@@ -8,7 +8,12 @@ namespace Razor.LyserødeSpejdere.Pages
 
     public class MedlemmerModel : PageModel
     {
-        private readonly BrugerRepo _brugerRepo = new BrugerRepo();
+        private readonly IBrugerRepo _brugerRepo;
+
+        public MedlemmerModel(IBrugerRepo brugerRepo)
+        {
+            _brugerRepo = brugerRepo;
+        }
 
         public List<Bruger> Medlemmer { get; set; } = new();
 
