@@ -1,5 +1,7 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.AktivitetModel
+@* Tilføjet af Sofyane Amrhar: henter aktivitetstypens navn (kap - 10, @inject)*@
+@inject global::LyserødeSpejdere.Data.IAktivitetTypeRepo typeRepo
 
 
 
@@ -13,6 +15,33 @@
 <hr />
 
 <h2>Vores aktiviteter</h2>
+@*---- Tilføjet af Sofyane Amrhar: aktiviteter fra databasen (kap - 6) ----*@
+<table class="table table-striped">
+
+    <thead>
+    <tr>
+        <th>Aktivitet</th>
+        <th>Dato</th>
+        <th>Tid</th>
+        <th>Sted</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Aktiviteter)
+    {
+        var type = typeRepo.GetById(item.AktivitetTypeId);
+        <tr>
+            <td>@type?.Navn</td>
+            <td>@item.StartTid.ToString("dd-MM-yyyy")</td>
+            <td>@item.StartTid.ToString("HH:mm") - @item.SlutTid.ToString("HH:mm")</td>
+            <td>@item.Sted</td>
+        </tr>
+    }
+
+    </tbody>
+</table>
+@*--------- SLut På Sofyane's Kode -------- *@
+
 
 <div class="aktiviteter">
 
