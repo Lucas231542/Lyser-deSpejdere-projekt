@@ -7,8 +7,14 @@ namespace Razor.LyserødeSpejdere.Pages
 {
     public class LogInModel : PageModel
     {
+
+        private readonly IBrugerRepo _brugerRepo;
         
-        private readonly BrugerRepo _brugerRepo = new  BrugerRepo();
+        // Dependency injection: repo'et gives til siden via konstruktøren (kap 10)
+        public LogInModel(IBrugerRepo brugerRepo)
+        {
+            _brugerRepo = brugerRepo;
+        }
 
         [BindProperty] public string Brugernavn { get; set; } = "";
 
