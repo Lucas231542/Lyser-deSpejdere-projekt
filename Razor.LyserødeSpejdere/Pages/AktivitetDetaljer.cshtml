@@ -1,3 +1,28 @@
 @page "{id:int}"
 @model Razor.LyserødeSpejdere.Pages.AktivitetDetaljerModel
+@* ----- Lavet af Sofyane Amrhar: Viser detaljer om en aktivitet ------ *@
 
+<h1>@Model.Type.Navn</h1>
+<p>@Model.Type.Beskrivelse</p>
+
+<hr />
+
+<dl class="row">
+<dt class="col-sm-3">Dato</dt>
+<dd class="col-sm-9">@Model.Aktivitet.StartTid.ToString("MM/dd/yyyy")</dd>
+
+<dt class="col-sm-3">Tid</dt>
+<dd class="col-sm-9">@Model.Aktivitet.StartTid.ToString("HH:mm") - @Model.Aktivitet.SlutTid.ToString("HH:mm")</dd>
+<dt class="col-sm-3">Minimusalder</dt>
+<dd class="col-sm-9">
+    @(Model.Type.MinAlder == 0 ? "Ingen aldersgrænse" : Model.Type.MinAlder + " år")
+</dd>
+
+<dt class="col-sm-3">Max deltagere</dt>
+<dd class="col-sm-9">
+    @(Model.Type.MaxDeltagere == 0 ? "Ingen grænse" : Model.Type.MaxDeltagere.ToString())
+</dd>
+</dl>
+
+<a asp-page="/Aktivitet" class="btn btn-secondary">Tilbage til aktiviteter</a>
+@* ------ Slut på Sofyane's kode ----- *@
