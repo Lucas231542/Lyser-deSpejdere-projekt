@@ -1,35 +1,35 @@
+using LyserødeSpejdere.Data;
+using LyserødeSpejdere.Lib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Razor.LyserødeSpejdere.Pages
-{ 
-public class LogInModel : PageModel
 {
-    [BindProperty]
-    public string Brugernavn { get; set; } = "";
-
-    [BindProperty]
-    public string Adgangskode { get; set; } = "";
-
-    public string Fejl { get; set; } = "";
-
-    public IActionResult OnPost()
+    public class LogInModel : PageModel
     {
-            // Eksempel på loginoplysninger til test
-            if ((Brugernavn == "Anto3061" && Adgangskode == "bxh57eme") ||
-         (Brugernavn == "Aleks1902" && Adgangskode == "Løven") ||
-         (Brugernavn == "Lucas2005" && Adgangskode == "Lucas2004") ||
-         (Brugernavn == "Khadija" && Adgangskode == "KhadijaAhmad.") ||
-         (Brugernavn == "Ahmad" && Adgangskode == "kode456") ||
-         (Brugernavn == "Sofyane" && Adgangskode == "kode456")) 
+        
+        private readonly BrugerRepo _brugerRepo = new  BrugerRepo();
+
+        [BindProperty] public string Brugernavn { get; set; } = "";
+
+        [BindProperty] public string Adgangskode { get; set; } = "";
+
+        public string Fejl { get; set; } = "";
+
+        public IActionResult OnPost()
+        {
+            // Spørger databasen om brugernavn og adgangskode passer 
+            
+            Bruger? bruger = _brugerRepo.Login(Brugernavn, Adgangskode);
+
+            if (bruger == null)
             {
-                    HttpContext.Session.SetString("ErLoggetInd", "true");
-
-                    return RedirectToPage("/Medlemmer");
-                }
-
-        Fejl = "Forkert brugernavn eller adgangskode.";
-        return Page();
+                Fejl = "Forkert brugernavn eller adgangskode.";
+                return Page();
+            }
+            
+            HttpContext.Session.SetString("ErLoggetInd", "true");
+            return RedirectToPage("/Medlemmer");
+        }
     }
-}
 }
