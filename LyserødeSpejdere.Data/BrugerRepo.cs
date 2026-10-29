@@ -11,8 +11,10 @@ namespace LyserødeSpejdere.Data
     {
         private readonly DBConnecter _db = new DBConnecter();
 
-        // Hjælpemetode: Laver en række fra databasen om til et bruger-objekt
+        
         private Bruger LavBruger(SqlDataReader r)
+            // Hjælpemetode: Laver en række fra databasen om til et bruger-objekt
+        // Skrives en gang bruges 3 steder (GetAll, GetById, Login) Undgå at gentage kode
         {
             return new Bruger
             {
@@ -76,7 +78,7 @@ namespace LyserødeSpejdere.Data
             {
                 conn.Open();
                 string sql =
-                    "SELECT BrugerId, Navn, Mail, Brugernavn, Adgangskode, Foedselsdato, ErLeder FROM Bruger WHERE Brugernavn AND Adgangskode = @Adgangskode ";
+                    "SELECT BrugerId, Navn, Mail, Brugernavn, Adgangskode, Foedselsdato, ErLeder FROM Bruger WHERE Brugernavn = @Brugernavn AND Adgangskode = @Adgangskode ";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@Brugernavn", brugernavn);
                 cmd.Parameters.AddWithValue("@Adgangskode", adgangskode);
