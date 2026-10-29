@@ -1,3 +1,5 @@
+using LyserødeSpejdere.Data;
+using LyserødeSpejdere.Lib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -5,9 +7,29 @@ using System.Text.Json;
 namespace Razor.LyserødeSpejdere.Pages
 {
     public class AktivitetModel : PageModel
-
-
     {
+        //Tilføjede af Sofyane Amrhar:
+        //Kode starter Herfra
+        //Henter aktiviteterne fra databasen i stedet for fast HTML
+        private readonly IAktivitetRepo _aktivitetRepo; 
+
+        //Listen, som siden viser (Kap 6) 
+        public List<Aktivitet> Aktiviteter { get; set; } = new(); // --- Tilføjet af sofyane
+
+        // Dependency injection via konstruktøren (kap 10) 
+        public AktivitetModel(IAktivitetRepo aktivitetRepo) //---Tilføjet af Sofyane ---
+        {
+            _aktivitetRepo = aktivitetRepo;
+        }
+
+        // Køres når siden åbnes: Hent alle aktiviteter 
+        public void OnGet()     // --- Tilføjelse af sofyane ----
+        {
+            Aktiviteter = _aktivitetRepo.GetAllaktivitet();
+        }
+        // ----- Slut på Sofyane's kode -----
+
+
         public IActionResult OnPostTilfoej(string aktivitetNavn)
         {
             // Kontrollerer, om medlemmet er logget ind
@@ -22,15 +44,15 @@ namespace Razor.LyserødeSpejdere.Pages
             List<string> aktiviteter = string.IsNullOrEmpty(json)
                 ? new List<string>()
                 : JsonSerializer.Deserialize<List<string>>(json)
-                    ?? new List<string>();
+                  ?? new List<string>();
 
             // Kontrollerer, at aktiviteten er gyldig
             var tilladteAktiviteter = new List<string>
-        {
-            "Ridning",
-            "Mad over bål",
-            "Fang dyr ved vandhullet"
-        };
+            {
+                "Ridning",
+                "Mad over bål",
+                "Fang dyr ved vandhullet"
+            };
 
             if (!tilladteAktiviteter.Contains(aktivitetNavn))
             {
