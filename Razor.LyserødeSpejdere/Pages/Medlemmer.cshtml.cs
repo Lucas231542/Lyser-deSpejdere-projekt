@@ -1,3 +1,5 @@
+using LyserødeSpejdere.Data;
+using LyserødeSpejdere.Lib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,15 +8,9 @@ namespace Razor.LyserødeSpejdere.Pages
 
     public class MedlemmerModel : PageModel
     {
-        public List<string> Medlemmer { get; set; } = new()
-    {
-        "Anto3061",
-        "Aleksandar",
-        "Lucas2005",
-        "Khadija",
-        "Sofyane",
-        "Ahmad",
-    };
+        private readonly BrugerRepo _brugerRepo = new BrugerRepo();
+
+        public List<Bruger> Medlemmer { get; set; } = new();
 
         public IActionResult OnGet()
         {
@@ -23,6 +19,7 @@ namespace Razor.LyserødeSpejdere.Pages
                 return RedirectToPage("/LogIn");
             }
 
+            Medlemmer = _brugerRepo.GetAll();
             return Page();
         }
 
