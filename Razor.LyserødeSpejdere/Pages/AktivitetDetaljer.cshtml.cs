@@ -10,16 +10,20 @@ namespace Razor.LyserødeSpejdere.Pages
     {
         private readonly IAktivitetRepo _aktivitetRepo;
         private readonly IAktivitetTypeRepo _typeRepo;
+        private readonly ITilmeldingRepo _tilmeldingRepo;
         
         // Det, siden viser 
         public Aktivitet Aktivitet { get; set; } = new();
+        public List<Faerdighed> Krav { get; set; } = new();
+        public int AntalTilmeldte { get; set; }
         public AktivitetType Type {get; set;} = new();
         
         // Dependency injection via konstruktøren (Kap - 10)
-        public AktivitetDetaljerModel(IAktivitetRepo aktivitetRepo, IAktivitetTypeRepo typeRepo)
+        public AktivitetDetaljerModel(IAktivitetRepo aktivitetRepo, IAktivitetTypeRepo typeRepo, ITilmeldingRepo tilmeldingRepo)
         {
             _aktivitetRepo = aktivitetRepo;
             _typeRepo = typeRepo;
+            _tilmeldingRepo = tilmeldingRepo;
         }
         
         // id kommer fra adressen, fx //AktivitetDetaljer/3 (route-parameter, kap - 9)
@@ -35,6 +39,8 @@ namespace Razor.LyserødeSpejdere.Pages
             
             Aktivitet = aktivitet;
             Type = _typeRepo.GetById(aktivitet.AktivitetTypeId) ?? new AktivitetType();
+            Krav = _typeRepo.HentKrav(aktivitet.AktivitetTypeId);
+            AntalTilmeldte = _tilmeldingRepo.HentDeltagerAntal(id);
             return Page();
         } 
     }
