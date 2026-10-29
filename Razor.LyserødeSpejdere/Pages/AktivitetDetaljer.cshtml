@@ -9,11 +9,13 @@
 
 <dl class="row">
 <dt class="col-sm-3">Dato</dt>
-<dd class="col-sm-9">@Model.Aktivitet.StartTid.ToString("MM/dd/yyyy")</dd>
+<dd class="col-sm-9">@Model.Aktivitet.StartTid.ToString("dd/MM/yyyy")</dd>
+<DT class="col-sm-3">Sted</dt>
+<dd class="col-sm-9">@Model.Aktivitet.Sted</dd>
 
 <dt class="col-sm-3">Tid</dt>
 <dd class="col-sm-9">@Model.Aktivitet.StartTid.ToString("HH:mm") - @Model.Aktivitet.SlutTid.ToString("HH:mm")</dd>
-<dt class="col-sm-3">Minimusalder</dt>
+<dt class="col-sm-3">Minimumsalder</dt>
 <dd class="col-sm-9">
     @(Model.Type.MinAlder == 0 ? "Ingen aldersgrænse" : Model.Type.MinAlder + " år")
 </dd>
@@ -22,6 +24,31 @@
 <dd class="col-sm-9">
     @(Model.Type.MaxDeltagere == 0 ? "Ingen grænse" : Model.Type.MaxDeltagere.ToString())
 </dd>
+<dt class="col-sm-3">Tilmeldte</dt>
+<dd class="col-sm-9">
+    @Model.AntalTilmeldte
+    @if (Model.Type.MaxDeltagere > 0)
+    {
+        <span>af @Model.Type.MaxDeltagere</span>
+    }
+</dd>
+
+<dt class="col-sm-3">Krævede tegn </dt>
+<dd class="col-sm-9">
+@if (Model.Krav.Count == 0)
+{
+    <span>Ingen</span>
+    
+}
+else
+{
+    @foreach (var tegn in Model.Krav)
+    {
+        <span class="badge bg-info">@tegn.Navn</span>
+    }
+}
+</dd>
+
 </dl>
 
 <a asp-page="/Aktivitet" class="btn btn-secondary">Tilbage til aktiviteter</a>
