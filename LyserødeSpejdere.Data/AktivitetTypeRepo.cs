@@ -70,9 +70,9 @@ namespace LyserødeSpejdere.Data
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT f.FaerdighedId, f.Navn" +
+                string sql = "SELECT f.FaerdighedId, f.Navn " +
                              "FROM Faerdighed f " +
-                             "JOIN AktivitetTypeKravk ON f.FaerdighedId = k.FaerdighedId" +
+                             "JOIN AktivitetTypeKrav K ON f.FaerdighedId = k.FaerdighedId " +
                              "WHERE k.AktivitetTypeId = @AktivitetTypeId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AktivitetTypeId", aktivitetTypeId);
