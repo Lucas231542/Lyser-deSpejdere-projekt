@@ -48,7 +48,7 @@ namespace LyserødeSpejdere.Data
             {
                 conn.Open();
                 string sql =
-                    "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder FROM AktivitetType WHERE AktivitetTypeId";
+                    "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder FROM AktivitetType WHERE AktivitetTypeId = @AktivitetTypeId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AktivitetTypeId", aktivitetTypeId);
                 SqlDataReader r = cmd.ExecuteReader();
