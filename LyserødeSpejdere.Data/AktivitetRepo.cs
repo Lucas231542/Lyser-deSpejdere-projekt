@@ -106,7 +106,7 @@ namespace LyserødeSpejdere.Lib
 
 
 
-        public void Update(DateTime StartTid, DateTime SlutTid, string Sted)
+        public void Update(int AktivitetId, DateTime StartTid, DateTime SlutTid, string Sted)
         {
             using (SqlConnection conn = _db.GetConnection())
             {
