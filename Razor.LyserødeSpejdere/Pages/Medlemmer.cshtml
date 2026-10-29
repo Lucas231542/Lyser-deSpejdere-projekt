@@ -11,7 +11,19 @@
 <ul>
     @foreach (var medlem in Model.Medlemmer)
     {
-        <li>@medlem.Navn</li>
+        <li>
+            
+            @medlem.Navn
+            @if (medlem.ErLeder)
+            {
+                <span class="badge bg-primary">Leder</span>
+            }
+
+            else
+            {
+                <span class="badge bg-secondary">Spejder</span>
+            }
+        </li>
     }
 </ul>
 <hr />
