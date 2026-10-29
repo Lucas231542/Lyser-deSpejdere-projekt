@@ -1,7 +1,14 @@
+using LyserødeSpejdere.Data;
+using LyserødeSpejdere.Lib;
+
 var builder = WebApplication.CreateBuilder(args);
- 
 // Add services to the container.
 builder.Services.AddRazorPages();
+// Dependency injection: repos registreres som service (Razor > Kap 10)
+builder.Services.AddSingleton<IBrugerRepo, BrugerRepo>();
+builder.Services.AddSingleton<IAktivitetRepo, AktivitetRepo>();
+builder.Services.AddSingleton<IAktivitetTypeRepo, AktivitetTypeRepo>();
+builder.Services.AddSingleton<ITilmeldingRepo, TilmeldingRepo>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
