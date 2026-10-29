@@ -74,11 +74,11 @@ namespace LyserødeSpejdere.Data
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECt a.AktivitetId, a.AktivitetTypeId, a.StartTid, a.SlutTid, a.Sted" +
-                             "FROM Aktivitet a" +
-                             "JOIN Tilmelding t ON a.AktivitetId = t.AktivitetId" +
-                             "WHERE t.BrugerId = @BrugerId" +
-                             "ORDER BY a.StartTid";
+                string sql = @"SELECt a.AktivitetId, a.AktivitetTypeId, a.StartTid, a.SlutTid, a.Sted
+                             FROM Aktivitet a
+                             JOIN Tilmelding t ON a.AktivitetId = t.AktivitetId
+                             WHERE t.BrugerId = @BrugerId
+                             ORDER BY a.StartTid";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@BrugerId", brugerId);
                 SqlDataReader r = cmd.ExecuteReader();
@@ -163,11 +163,11 @@ namespace LyserødeSpejdere.Data
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT Typ.MaxDeltagere, typ.MinAlder, b.Foedselsdato, a.StarTid" +
-                             "FROM Aktivitet a " +
-                             "JOIN AktivitetType typ ON a.AktivitetTypeId =  typ.AktivitetTypeId " +
-                             "CROSS JOIN Bruger b " +
-                             "WHERE a.AktivitetId = @AktivitetId AND b.BrugerId = @brugerId";
+                string sql = @"SELECT Typ.MaxDeltagere, typ.MinAlder, b.Foedselsdato, a.StartTid
+                             FROM Aktivitet a 
+                             JOIN AktivitetType typ ON a.AktivitetTypeId = typ.AktivitetTypeId
+                             CROSS JOIN Bruger b
+                             WHERE a.AktivitetId = @AktivitetId AND b.BrugerId = @brugerId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
                 cmd.Parameters.AddWithValue("@brugerId", brugerId);

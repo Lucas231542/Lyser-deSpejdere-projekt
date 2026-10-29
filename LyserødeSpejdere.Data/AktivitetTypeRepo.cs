@@ -19,6 +19,7 @@ namespace LyserødeSpejdere.Data
                 Beskrivelse = r.IsDBNull(2) ? "" : r.GetString(2),
                 MaxDeltagere = r.IsDBNull(3) ? 0 : r.GetInt32(3),
                 MinAlder = r.IsDBNull(4) ? 0 : r.GetInt32(4),
+                ImagePath = r.IsDBNull(5) ? "" : r.GetString(5)
             };
         }
         
@@ -29,7 +30,7 @@ namespace LyserødeSpejdere.Data
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
-                string sql = "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder FROM AktivitetType ORDER BY Navn";
+                string sql = "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder, ImagePath FROM AktivitetType ORDER BY Navn";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader r = cmd.ExecuteReader();
 
@@ -48,7 +49,7 @@ namespace LyserødeSpejdere.Data
             {
                 conn.Open();
                 string sql =
-                    "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder FROM AktivitetType WHERE AktivitetTypeId = @AktivitetTypeId";
+                    "SELECT AktivitetTypeId, Navn, Beskrivelse, MaxDeltagere, MinAlder, ImagePath FROM AktivitetType WHERE AktivitetTypeId = @AktivitetTypeId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AktivitetTypeId", aktivitetTypeId);
                 SqlDataReader r = cmd.ExecuteReader();

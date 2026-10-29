@@ -12,6 +12,8 @@ namespace LyserødeSpejdere.Lib
         private int _maxDeltagere;
         private int _minAlder;
 
+        private string _imagePath;
+
 
         public AktivitetType()
         {
@@ -20,15 +22,17 @@ namespace LyserødeSpejdere.Lib
             _beskrivelse = "";
             _maxDeltagere = 0;
             _minAlder = 0;
+            _imagePath = "";
         }
 
-        public AktivitetType(int aktivitetTypeId, string navn, string beskrivelse, int maxDeltagere, int minAlder)
+        public AktivitetType(int aktivitetTypeId, string navn, string beskrivelse, int maxDeltagere, int minAlder, string imagePath)
         {
             _aktivitetTypeId = aktivitetTypeId;
             _navn = navn;
             _beskrivelse = beskrivelse;
             _maxDeltagere = maxDeltagere;
             _minAlder = minAlder;
+            _imagePath = imagePath;
         }
 
         public int AktivitetTypeId
@@ -61,9 +65,15 @@ namespace LyserødeSpejdere.Lib
             set { _minAlder = value; } 
         }
 
+        public string ImagePath
+        {
+            get { return _imagePath; }
+            set { _imagePath = value; }
+        }
+
         public override string ToString()
         {
-            return $"AktivitetId: {AktivitetTypeId}, Aktivitet: {Navn}, Beskrivelse: {Beskrivelse}, MaxDeltagere: {MaxDeltagere}, MinimumAlder: {MinAlder}";
+            return $"AktivitetId: {AktivitetTypeId}, Aktivitet: {Navn}, Beskrivelse: {Beskrivelse}, MaxDeltagere: {MaxDeltagere}, MinimumAlder: {MinAlder}, billed: {ImagePath}";
         }
     }
 }

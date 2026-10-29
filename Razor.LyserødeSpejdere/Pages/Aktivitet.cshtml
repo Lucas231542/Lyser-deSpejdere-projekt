@@ -16,6 +16,14 @@
 
 <h2>Vores aktiviteter</h2>
 @*---- Tilføjet af Sofyane Amrhar: aktiviteter fra databasen (kap - 6) ----*@
+@if (TempData["Fejl"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Fejl"]
+    </div>
+}
+
+
 <table class="table table-striped">
 
     <thead>
@@ -24,6 +32,7 @@
         <th>Dato</th>
         <th>Tid</th>
         <th>Sted</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -31,17 +40,32 @@
     {
         var type = typeRepo.GetById(item.AktivitetTypeId);
         <tr>
-            <td><a asp-page="/AktivitetDetaljer" asp-route-id="@item.AktivitetId">@type?.Navn</a></td>
+            <td>@type?.Navn</td>
             <td>@item.StartTid.ToString("dd-MM-yyyy")</td>
             <td>@item.StartTid.ToString("HH:mm") - @item.SlutTid.ToString("HH:mm")</td>
             <td>@item.Sted</td>
+            <td><img src="@type?.ImagePath" width="150" class="img-fluid" /> </td>
+
+            <td>
+                <form method="post" asp-page-handler="Tilfoej">
+                      <input type="hidden"
+                             name="aktivitetId"
+                             value="@item.AktivitetId"/>
+                      
+                      <button type="submit"
+                              class="btn btn-success">
+                          Tilmeld
+                      </button>
+
+                </form>
+            </td>
         </tr>
     }
 
     </tbody>
 </table>
 @*--------- SLut På Sofyane's Kode -------- *@
-
+@* 
 
 <div class="aktiviteter">
 
@@ -101,3 +125,4 @@
     </section>
 
 </div>
+ *@

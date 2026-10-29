@@ -1,6 +1,6 @@
 ﻿@page
 @model Razor.LyserødeSpejdere.Pages.MineAktiviteterModel
-
+@inject global::LyserødeSpejdere.Data.IAktivitetTypeRepo typeRepo
 
 
 <h1>Mine aktiviteter</h1>
@@ -20,10 +20,39 @@ else
 {
     @foreach (var aktivitet in Model.Aktiviteter)
     {
-        <div class="card p-3 mb-3">
+        @*  <div class="card p-3 mb-3">
             <h4>@aktivitet</h4>
-            <p>Du er tilmeldt denne aktivitet.</p>
-        </div>
+            <p>
+                Du er tilmeldt denne aktivitet.
+                Sted: @aktivitet.Sted
+            </p>
+        </div> *@
+
+        var type = typeRepo.GetById(aktivitet.AktivitetTypeId);
+
+        <div class="card p-3 mb-3">
+            <h4>@type?.Navn</h4>
+
+            <p>
+                Sted: @aktivitet.Sted <br />
+                Start: @aktivitet.StartTid.ToString("dd-MM-yyyy HH:mm") <br/>
+                Slut: @aktivitet.SlutTid.ToString("dd-MM-yyyy HH:mm")
+
+            </p>
+            <form method="Post">
+                <input type="hidden"
+                       name="aktivitetId"
+                       value="@aktivitet.AktivitetId"/>
+                
+                <button asp-page-handler="Frameld"
+                        typeof="submit"
+                        class="btn btn-danger">
+                      Frameld
+                </button>
+            </form>
+
+
+       </div>
     }
 }
 

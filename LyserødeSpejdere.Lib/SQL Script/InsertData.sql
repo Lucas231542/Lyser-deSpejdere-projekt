@@ -21,10 +21,10 @@ INSERT INTO Faerdighed (Navn) VALUES        -- Faerdighed har kun en kolonne, vi
                  -- Mad over bål : NULL i begge, så der er INGEN GRÆNSER. Alle må deltage. Det viser casens "Nogle aktiviteter har begrænsninger".
                  -- Fang dyr: Max 6, mindst 8 år.   NULL skrives uden '  '  fordi det betyder "ingen værdi" og ikke teksten "NULL"
                  
-INSERT INTO AktivitetType (Navn, Beskrivelse, MaxDeltagere, MinAlder) VALUES    
-('Ridning',  'Besøg på gården og ridetur', 4, 10), -- id 1
-('Mad over Bål', 'Vi laver aftensmad over bål', NULL, NULL), -- id 2
-('Fang dyr ved vandhul', 'Tur til vandhullet med net', 6, 8); -- id 3
+INSERT INTO AktivitetType (Navn, Beskrivelse, MaxDeltagere, MinAlder, ImagePath) VALUES    
+('Ridning',  'Besøg på gården og ridetur', 4, 10, '/images/hest.webp'), -- id 1
+('Mad over Bål', 'Vi laver aftensmad over bål', NULL, NULL, '/images/bål.jpg'), -- id 2
+('Fang dyr ved vandhul', 'Tur til vandhullet med net', 6, 8, '/images/fish.jpg'); -- id 3
 
 -- Aktiviteter: Konkrete gange (Format: 'ÅÅÅÅ-MM-DDTtt:mm:ss')
                                                               
@@ -83,3 +83,12 @@ INSERT INTO Tilmelding (BrugerId, AktivitetId) VALUES
 Select * From Bruger
 
 
+SELECT COUNT(*) FROM Bruger;
+SELECT COUNT(*) FROM AktivitetType;
+SELECT COUNT(*) FROM Aktivitet;
+
+SELECT * FROM AktivitetType;
+
+SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'AktivitetType'

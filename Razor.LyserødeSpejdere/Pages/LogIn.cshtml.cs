@@ -35,6 +35,11 @@ namespace Razor.LyserødeSpejdere.Pages
             }
             
             HttpContext.Session.SetString("ErLoggetInd", "true");
+
+            HttpContext.Session.SetInt32("BrugerId", bruger.BrugerId);
+
+            HttpContext.Session.SetString("Brugernavn", bruger.Brugernavn);
+
             return RedirectToPage("/Medlemmer");
         }
     }

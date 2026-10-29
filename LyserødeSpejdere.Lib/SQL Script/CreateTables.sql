@@ -38,7 +38,8 @@ CREATE TABLE AktivitetType(
     Navn        varchar(255) NOT NULL,
     Beskrivelse varchar(255),
     MaxDeltagere int,
-    MinAlder    int
+    MinAlder    int,
+    ImagePath VarChar(255)
 );
 
 -- HVORNÅR og HVOR en aktivitet sker
