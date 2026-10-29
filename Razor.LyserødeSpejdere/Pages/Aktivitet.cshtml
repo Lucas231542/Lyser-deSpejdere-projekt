@@ -31,7 +31,7 @@
     {
         var type = typeRepo.GetById(item.AktivitetTypeId);
         <tr>
-            <td>@type?.Navn</td>
+            <td><a asp-page="/AktivitetDetaljer" asp-route-id="@item.AktivitetId">@type?.Navn</a></td>
             <td>@item.StartTid.ToString("dd-MM-yyyy")</td>
             <td>@item.StartTid.ToString("HH:mm") - @item.SlutTid.ToString("HH:mm")</td>
             <td>@item.Sted</td>
