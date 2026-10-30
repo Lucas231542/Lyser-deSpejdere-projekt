@@ -108,11 +108,11 @@ namespace LyserødeSpejdere.Data
             {
                 conn.Open();
                 string sql =
-                    "SELECT b.BrugerId, b.Navn, b.Mail, b.Brugernavn, b.Adgangskode, b.Foedselsdato, b.ErLeder" +
-                    "FROM Bruger b " +
-                    "JOIN Tilmelding t ON b.BrugerId = t.BrugerId" +
-                    "WHERE t.AktivitetId = @AktivitetId" +
-                    "ORDER BY b.Navn";
+                   "SELECT b.BrugerId, b.Navn, b.Mail, b.Brugernavn, b.Adgangskode, b.Foedselsdato, b.ErLeder " +
+                                                "FROM Bruger b " +
+                                                "JOIN Tilmelding t ON b.BrugerId = t.BrugerId " +
+                                                "WHERE t.AktivitetId = @AktivitetId " +
+                                                "ORDER BY b.Navn";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@aktivitetId", aktivitetId);
                 SqlDataReader r = cmd.ExecuteReader();
