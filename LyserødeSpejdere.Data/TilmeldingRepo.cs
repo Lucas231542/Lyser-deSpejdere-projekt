@@ -200,6 +200,15 @@ namespace LyserødeSpejdere.Data
             {
                 return "Aktiviteten er desværre fuld";
             }
+            
+            // Regel 3: Krævede tegn
+            // HAr spejderenikke alle de tegn, aktiviteten kræver, afvises tilmeldingen.
+            // Beskeden viser, hvilke tegn der mangler, fx "Du mangler tegn: Ridemærke"
+            List<string> mangler = HentManglendeTegn(brugerId,aktivitetId);
+            if (mangler.Count > 0)
+            {
+                return "Du mangler tegn: " + string.Join(", ", mangler);
+            }
 
             return null; // Alle regler er ok
         }
@@ -215,6 +224,41 @@ namespace LyserødeSpejdere.Data
             }
 
             return alder;
+        }
+        
+        // Regel 3: Krævede tegn --- Finder de tegn som aktiviteterne KRÆVER, men som spejder IKKE HAR.
+        // Tom liste = spejderen har alle krævede tegn.
+        private List<string> HentManglendeTegn(int brugerId, int aktivitetId)
+        {
+            List<string> mangler = new List<string>();
+            using (SqlConnection conn = _db.GetConnection())
+            {
+                conn.Open();
+                
+                // 1. Start med aktiviteten
+                // 2. JoinAktivitetTypeKrav: De tegn, aktivitetens TYPE kræver
+                // 3. JoinFaerdighed: tegnenes navne 
+                // 4. NOT IN: fjern de teg, spejderen allerede har 
+                string sql =  "SELECT f.Navn " +
+                              "FROM Aktivitet a " +
+                              "JOIN AktivitetTypeKrav k ON a.AktivitetTypeId = k.AktivitetTypeId " +
+                              "JOIN Faerdighed f ON k.FaerdighedId = f.FaerdighedId " +
+                              "WHERE a.AktivitetId = @AktivitetId " +
+                              "AND k.FaerdighedId NOT IN " +
+                              "(SELECT FaerdighedId FROM BrugerFaerdighed WHERE BrugerId = @BrugerId)";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@AktivitetId", aktivitetId);
+                cmd.Parameters.AddWithValue("@BrugerId", brugerId);
+                SqlDataReader r = cmd.ExecuteReader();
+                
+                // Hver række er et tegn spejderen mangler
+                while (r.Read())
+                {
+                    mangler.Add(r.GetString(0));
+                }
+            }
+
+            return mangler;
         }
     }
 }
