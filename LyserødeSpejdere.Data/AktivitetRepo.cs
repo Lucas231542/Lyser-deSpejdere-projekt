@@ -19,7 +19,7 @@ namespace LyserødeSpejdere.Lib
             List<Aktivitet> AktivitetListe = new List<Aktivitet>();
             using (SqlConnection conn = _db.GetConnection()) // GetAlleaktiviteter bruger metoden GetConnection fra DBConnecter som opretter forbindelse til Databasen
             {
-
+              
                 conn.Open(); // connection bliver åbnet
 
                 string sql = $"SELECT AktivitetId, AktivitetTypeId, StartTid, SlutTid, Sted FROM Aktivitet"; // SELECT vælger hvilke parameter der skal vises med metoden

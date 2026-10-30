@@ -32,6 +32,8 @@ namespace Razor.LyserødeSpejdere.Pages
         {
             HttpContext.Session.Clear();
 
+            Response.Cookies.Delete("BrugerNavn"); // sletter HuskMig cookie
+
             return RedirectToPage("/LogIn");
         }
     }

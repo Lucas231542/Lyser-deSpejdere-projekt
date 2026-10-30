@@ -20,7 +20,17 @@ namespace Razor.LyserødeSpejdere.Pages
 
         [BindProperty] public string Adgangskode { get; set; } = "";
 
+        [BindProperty] public bool HuskMig { get; set; } = false;
         public string Fejl { get; set; } = "";
+
+        public void OnGet()
+        {
+            var gemtBrugernavn = Request.Cookies["BrugerNavn"];
+            if (!string.IsNullOrEmpty(gemtBrugernavn))
+            {
+                Brugernavn = gemtBrugernavn;
+            }
+        }
 
         public IActionResult OnPost()
         {
@@ -39,6 +49,20 @@ namespace Razor.LyserødeSpejdere.Pages
             HttpContext.Session.SetInt32("BrugerId", bruger.BrugerId);
 
             HttpContext.Session.SetString("Brugernavn", bruger.Brugernavn);
+
+            if (HuskMig)
+            {
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(30),
+                    HttpOnly = true // Sikre at cookies ikke kan stjæles.
+                };
+                Response.Cookies.Append("BrugerNavn", Brugernavn, cookieOptions);
+            }
+            else
+            {
+                Response.Cookies.Delete("BrugerNavn");
+            }
 
             return RedirectToPage("/Medlemmer");
         }
