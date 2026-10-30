@@ -49,7 +49,27 @@ else
 }
 </dd>
 
-</dl>
+
+@* Tilføjet af Sofyane Amrhar: lederen kan se, hvem der deltager (casen) *@
+
+@if (Model.ErLoggetInd)
+{
+    <h3>Deltagere</h3>
+    @if (Model.Deltagere.Count == 0)
+    {
+        <p>Ingen er tilmeldt endnu.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var d in Model.Deltagere)
+            {
+                <li>@d.Navn</li>
+            }
+        </ul>
+    }
+}
+
 
 <a asp-page="/Aktivitet" class="btn btn-secondary">Tilbage til aktiviteter</a>
-@* ------ Slut på Sofyane's kode ----- *@
+</dl>
