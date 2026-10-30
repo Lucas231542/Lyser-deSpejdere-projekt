@@ -46,7 +46,7 @@ namespace Razor.LyserødeSpejdere.Pages
             
             HttpContext.Session.SetString("ErLoggetInd", "true");
 
-            HttpContext.Session.SetInt32("BrugerId", bruger.BrugerId);
+            HttpContext.Session.SetInt32("BrugerId", bruger.BrugerId); // Systemet husker brugeren igennem brugerIdet. Dette gør at programmet loader hurtigere, så den ikke skal ind og læse databasen igennem
 
             HttpContext.Session.SetString("Brugernavn", bruger.Brugernavn);
 
