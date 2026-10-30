@@ -20,13 +20,6 @@ else
 {
     @foreach (var aktivitet in Model.Aktiviteter)
     {
-        @*  <div class="card p-3 mb-3">
-            <h4>@aktivitet</h4>
-            <p>
-                Du er tilmeldt denne aktivitet.
-                Sted: @aktivitet.Sted
-            </p>
-        </div> *@
 
         var type = typeRepo.GetById(aktivitet.AktivitetTypeId);
 

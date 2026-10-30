@@ -9,30 +9,6 @@ namespace Razor.LyserødeSpejdere.Pages
 {
     public class MineAktiviteterModel : PageModel
     {
-    //    public List<string> Aktiviteter { get; set; } = new();
-
-    //    public IActionResult OnGet()
-    //    {
-    //        // Kontrollerer, om brugeren er logget ind
-    //        if (HttpContext.Session.GetString("ErLoggetInd") != "true")
-    //        {
-    //            return RedirectToPage("/LogIn");
-    //        }
-
-    //        // Henter brugerens tilmeldte aktiviteter
-    //        var json = HttpContext.Session.GetString("MineAktiviteter");
-
-    //        if (!string.IsNullOrEmpty(json))
-    //        {
-    //            Aktiviteter =
-    //                JsonSerializer.Deserialize<List<string>>(json)
-    //                ?? new List<string>();
-    //        }
-
-    //        return Page();
-    //    }
-    //}
-
     private readonly TilmeldingRepo _tilmeldingRepo = new();
     public List<Aktivitet> Aktiviteter { get; set; } = new();
     
@@ -41,20 +17,21 @@ namespace Razor.LyserødeSpejdere.Pages
             
             int? brugerId = HttpContext.Session.GetInt32("BrugerId");
           
-            if (brugerId == null)
+            if (brugerId == null) // tjekker om brugerId eksistere/ om man er logget ind
             {
-                return RedirectToPage("/LogIn");
+                return RedirectToPage("/LogIn"); // brugeren bliver sendt til login page
             }
-            Aktiviteter = _tilmeldingRepo.HentMineAktiviteter(brugerId.Value);
+            Aktiviteter = _tilmeldingRepo.HentMineAktiviteter(brugerId.Value); // Sætter brugerens brugerId ind i metoden(HentMineAktiviteter), så den ved hvilken brugers aktiviteter der skal sættes ind på siden
 
-            return Page();
-        }
-    public IActionResult OnPostFrameld(int aktivitetId)
+            return Page(); // returnerer siden MineAktiviteter der nu er opdateret med aktiviteterne der er koblet til brugerIdet
+    }
+
+    public IActionResult OnPostFrameld(int aktivitetId) 
     {
-        int? brugerId = HttpContext.Session.GetInt32("BrugerId");
+        int? brugerId = HttpContext.Session.GetInt32("BrugerId"); // sætter brugerId til at være det brugerId som bliver kaldt fra session 
             if (brugerId != null)
             {
-                _tilmeldingRepo.Frameld(brugerId.Value, aktivitetId);
+                _tilmeldingRepo.Frameld(brugerId.Value, aktivitetId); // Sætter brugerens brugerId ind i metoden(Frameld), så den ved hvilken brugers aktivitet der skal fjernes fra siden
             }
 
         return RedirectToPage();

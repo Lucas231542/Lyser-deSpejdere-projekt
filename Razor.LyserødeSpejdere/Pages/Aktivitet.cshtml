@@ -44,10 +44,10 @@
     <tbody>
     @foreach (var item in Model.Aktiviteter)
     {
-        var type = typeRepo.GetById(item.AktivitetTypeId);
+        var type = typeRepo.GetById(item.AktivitetTypeId); // jeg injecter AktivitetTypeId så jeg kan kalde på type Navn
         <tr>
             <td>@type?.Navn</td>
-            <td>@item.StartTid.ToString("dd-MM-yyyy")</td>
+            <td>@item.StartTid.ToString("dd-MM-yyyy")</td> 
             <td>@item.StartTid.ToString("HH:mm") - @item.SlutTid.ToString("HH:mm")</td>
             <td>@item.Sted</td>
             <td><img src="@type?.ImagePath" width="150" class="img-fluid" /> </td>
@@ -70,65 +70,3 @@
 
     </tbody>
 </table>
-@*--------- SLut På Sofyane's Kode -------- *@
-@* 
-
-<div class="aktiviteter">
-
-    <section class="aktivitet">
-        <div class="aktivitet-tekst">
-            <h3>Ridning</h3>
-            <p>Besøg en gård og prøv at ride på heste.</p>
-            <p><strong>Dato:</strong> 30. oktober 2026</p>
-            <p><strong>Tid:</strong> 10:00 - 12:00</p>
-            <p><strong>Sted:</strong> Gården</p>
-            <p><strong>Krav:</strong> Mindst 10 år og ridemærke</p>
-
-            <form method="post" asp-page-handler="Tilfoej">
-                <input type="hidden" name="aktivitetNavn" value="Ridning" />
-                <button type="submit">Tilmeld mig</button>
-            </form>
-        </div>
-        <img src="/images/hest.webp" alt="Ridning på heste" />
-    </section>
-
-    <hr />
-
-    <section class="aktivitet">
-        <div class="aktivitet-tekst">
-            <h3>Mad over bål</h3>
-            <p>Vi laver lækker mad over bål sammen.</p>
-            <p><strong>Dato:</strong> 6. november 2026</p>
-            <p><strong>Tid:</strong> 18:00 - 20:00</p>
-            <p><strong>Sted:</strong> Lejrpladsen</p>
-            <p><strong>Krav:</strong> Ingen særlige krav</p>
-
-            <form method="post" asp-page-handler="Tilfoej">
-                <input type="hidden" name="aktivitetNavn" value="Mad over bål" />
-                <button type="submit">Tilmeld mig</button>
-            </form>
-        </div>
-        <img src="/images/bål.jpg" alt="Madlavning over bål" />
-    </section>
-
-    <hr />
-
-    <section class="aktivitet">
-        <div class="aktivitet-tekst">
-            <h3>Fang dyr ved vandhullet</h3>
-            <p>Vi undersøger smådyr i vandet med net.</p>
-            <p><strong>Dato:</strong> 7. december 2026</p>
-            <p><strong>Tid:</strong> 10:00 - 12:00</p>
-            <p><strong>Sted:</strong> Vandhullet</p>
-            <p><strong>Krav:</strong> Mindst 8 år</p>
-
-            <form method="post" asp-page-handler="Tilfoej">
-                <input type="hidden" name="aktivitetNavn" value="Fang dyr ved vandhullet" />
-                <button type="submit">Tilmeld mig</button>
-            </form>
-        </div>
-        <img src="/images/fish.jpg" alt="Smådyr ved vandhullet" />
-    </section>
-
-</div>
- *@
