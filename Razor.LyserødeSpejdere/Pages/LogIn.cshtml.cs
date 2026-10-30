@@ -50,6 +50,8 @@ namespace Razor.LyserødeSpejdere.Pages
 
             HttpContext.Session.SetString("Brugernavn", bruger.Brugernavn);
 
+            HttpContext.Session.SetString("ErLeder", bruger.ErLeder.ToString()); // Opretetlse af ny variabel i session som gemmer nuværende brugerens rolle 
+
             if (HuskMig)
             {
                 var cookieOptions = new CookieOptions
