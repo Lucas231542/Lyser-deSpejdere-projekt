@@ -16,6 +16,8 @@ namespace Razor.LyserødeSpejdere.Pages
         public Aktivitet Aktivitet { get; set; } = new();
         public List<Faerdighed> Krav { get; set; } = new();
         public int AntalTilmeldte { get; set; }
+        public List<Bruger> Deltagere { get; set; } = new();
+        public bool ErLoggetInd { get; set; }
         public AktivitetType Type {get; set;} = new();
         
         // Dependency injection via konstruktøren (Kap - 10)
@@ -40,7 +42,9 @@ namespace Razor.LyserødeSpejdere.Pages
             Aktivitet = aktivitet;
             Type = _typeRepo.GetById(aktivitet.AktivitetTypeId) ?? new AktivitetType();
             Krav = _typeRepo.HentKrav(aktivitet.AktivitetTypeId);
-            AntalTilmeldte = _tilmeldingRepo.HentDeltagerAntal(id);
+            AntalTilmeldte = _tilmeldingRepo.HentDeltagerAntal(id);     
+            Deltagere = _tilmeldingRepo.HentDeltagere(id);
+            ErLoggetInd = HttpContext.Session.GetString("ErLoggetInd") == "true";
             return Page();
         } 
     }
