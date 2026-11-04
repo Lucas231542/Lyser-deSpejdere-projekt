@@ -42,9 +42,9 @@ namespace Razor.LyserødeSpejdere.Pages
                 return RedirectToPage("/LogIn");
             }
 
-            string? fejl = _tilmeldingRepo.Tilmeld(brugerId.Value, aktivitetId);
+            string? fejl = _tilmeldingRepo.Tilmeld(brugerId.Value, aktivitetId); // tilmelder dig til aktiviteten
 
-            if (fejl != null)
+            if (fejl != null) // sender fejlbesked hvis man allerede er tilmeldt aktivieten
             {
                 TempData["Fejl"] = fejl;
                 return RedirectToPage();
