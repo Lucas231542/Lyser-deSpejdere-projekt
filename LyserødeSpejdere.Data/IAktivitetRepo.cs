@@ -10,7 +10,7 @@ namespace LyserødeSpejdere.Data
     {
         public List<Aktivitet> GetAllaktivitet();
         public Aktivitet GetAktivitetById(int aktivitetId);
-        public void CreateAktivitet(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted);
+        public void CreateAktivitet(int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted);
         public void Update(int AktivitetId, DateTime StartTid, DateTime SlutTid, string Sted);
         public void Delete(int aktivitetId);
  

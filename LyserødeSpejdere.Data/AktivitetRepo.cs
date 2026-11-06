@@ -80,25 +80,20 @@ namespace LyserødeSpejdere.Lib
 
 
 
-        public void CreateAktivitet(Bruger bruger, int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted) 
+        public void CreateAktivitet(int AktivitetTypeId, DateTime StartTid, DateTime SlutTid, string Sted) 
         {
             using (SqlConnection conn = _db.GetConnection())
             {
                 conn.Open();
                 string sql = $"Insert INTO Aktivitet (AktivitetTypeId, StartTid, SlutTid, Sted) VALUES (@AktivitetTypeId, @StartTid, @SlutTid, @Sted)"; 
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                if (bruger.ErLeder)
-                {
+                
                     cmd.Parameters.AddWithValue("@AktivitetTypeId", AktivitetTypeId);
                     cmd.Parameters.AddWithValue("@StartTid", StartTid);
                     cmd.Parameters.AddWithValue("@SlutTid", SlutTid);
                     cmd.Parameters.AddWithValue("@Sted", Sted);
                     cmd.ExecuteNonQuery();
-                }
-                else
-                {
-                    throw new Exception("er ikke leder");
-                }
+              
 
             }
         }
